@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +9,17 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  private photoService : PhotoService;
+  private photoForm : Platform;
+  constructor() {
+    this.photoService = new PhotoService(this.photoForm);
+   }
 
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
+  }
+
+  async ngOnInit() {
+    await this.photoService.loadSaved();
+  }
 }
